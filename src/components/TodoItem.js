@@ -1,32 +1,73 @@
-import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import RadioButton from './RadioButton';
+import React from "react";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import RadioButton from "./RadioButton";
+import LinearGradient from "react-native-linear-gradient";
+import { Screen } from "../constants";
 
-export default function TodoItem({ item, onPress }) {
-  console.log(item);
+export default function TodoItem({ item, onPress, onLongPress, shadows }) {
   return (
-    <TouchableOpacity key={item.id} onPress={onPress}>
-      <View style={styles.container}>
-        <RadioButton checked={item.completed} />
-        <View style={styles.columns}>
-          <Text>TODO: </Text>
-          <Text>{item.name}</Text>
+    <TouchableOpacity
+      key={item.id}
+      onPress={onPress}
+      style={[
+        styles.touchable,
+        { opacity: item.completed ? 0.5 : 1 },
+        !item.completed && shadows,
+      ]}
+      onLongPress={onLongPress}
+    >
+      <LinearGradient
+        colors={[item.color, "#C4E1E4"]}
+        style={styles.container}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View style={styles.radio}>
+          <RadioButton checked={item.completed} />
         </View>
-      </View>
+        <View style={styles.columns}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.dateTitle}>
+            <Text>{"TODO BY: \n"}</Text>
+            <Text>{item.targetCompletion}</Text>
+          </Text>
+        </View>
+      </LinearGradient>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    minHeight: 75,
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: "center",
     borderRadius: 8,
-    backgroundColor: 'white',
     paddingHorizontal: 15,
-    marginTop: 8
+    flex: 1,
   },
-  columns: { flexDirection: 'column', marginLeft: 10 }
+  columns: {
+    flexDirection: "column",
+    margin: 10,
+    flex: 1,
+  },
+  touchable: {
+    flex: 1,
+    backgroundColor: "white",
+    borderRadius: 8,
+  },
+  radio: {
+    position: "absolute",
+    right: 15,
+    top: 15,
+  },
+  title: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "700",
+    textTransform: "uppercase",
+  },
+  dateTitle: {
+    position: "absolute",
+    bottom: 10,
+    fontWeight: "500",
+  },
 });
