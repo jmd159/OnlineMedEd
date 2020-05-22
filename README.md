@@ -5,6 +5,12 @@
 - To create a new todo tap the plus icon at the bottom of the screen
 - To mark a todo as complete longpress the todo item, if you would like to check for completiong date simply tap the completed todo
 
+## Android
+![Android](https://github.com/jmd159/OnlineMedEd/blob/master/demoGifs/android.gif)
+
+## iOS
+![iOS](https://github.com/jmd159/OnlineMedEd/blob/master/demoGifs/ios.gif)
+
 ## Getting Started
 
 - if you do not have your dev environment up please feel free to follow React's documentation which can be found [here](https://reactnative.dev/docs/environment-setup)
