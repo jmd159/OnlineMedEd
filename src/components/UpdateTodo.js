@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 import Modal from "react-native-modal";
 import TodoForm from "./TodoForm";
 
@@ -16,6 +22,7 @@ export default function UpdateTodo({
       style={styles.modal}
       onBackdropPress={() => setVisible(false)}
       useNativeDriver={true}
+      avoidKeyboard={false}
     >
       {item ? (
         <TodoForm

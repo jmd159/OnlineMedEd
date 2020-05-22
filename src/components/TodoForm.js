@@ -9,6 +9,10 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import CalendarPicker from "./CalendarPicker";
 import { Colors } from "../constants";
@@ -17,6 +21,7 @@ import Button from "./Button";
 const initialInputState = {
   id: null,
   name: "",
+  description: "",
   actualCompletion: "",
   targetCompletion: "",
   completed: false,
@@ -62,9 +67,15 @@ export default function TodoForm({
   const [eachEntry, setEachEntry] = useState(
     editState ? editState : initialInputState
   );
-  const { name, targetCompletion, actualCompletion, completed } = eachEntry;
-  const onChangeText = (text, name) => {
-    setEachEntry({ ...eachEntry, [name]: text, id: count + 1 });
+  const {
+    name,
+    targetCompletion,
+    actualCompletion,
+    completed,
+    description,
+  } = eachEntry;
+  const onChangeText = (text, object) => {
+    setEachEntry({ ...eachEntry, [object]: text, id: count + 1 });
   };
   const onDateSelect = (day) => {
     setEachEntry({ ...eachEntry, targetCompletion: day.dateString });
@@ -73,49 +84,64 @@ export default function TodoForm({
     setEachEntry({ ...eachEntry, color: color });
   };
   return (
-    <View style={styles.formContainer}>
-      <Text>
-        <Text style={styles.titleText}>TASK: </Text>
-        {completed && (
-          <Text
-            style={styles.completedText}
-          >{`Completed on: ${actualCompletion}`}</Text>
-        )}
-      </Text>
-      <TextInput
-        name="name"
-        style={styles.textInput}
-        onChangeText={(text) => onChangeText(text, "name")}
-        value={name}
-      />
-      <Text style={styles.titleText}>COMPLETE BY: </Text>
-      <View style={styles.rowContainer}>
-        <CalendarPicker
-          onDateSelect={onDateSelect}
-          targetCompletion={targetCompletion}
-        />
-        <ColorPicker colors={Colors} onColorChange={onColorChange} />
-      </View>
-      {editState ? (
-        <EditButtons
-          onUpdatePress={() =>
-            updateTodo(todos, eachEntry, setTodos, setVisible, index)
-          }
-          onDeletePress={() =>
-            deleteTodo(todos, eachEntry, setTodos, setVisible, index)
-          }
-        />
-      ) : (
-        <View style={styles.saveButtonContainer}>
-          <Button
-            onPress={() => addTodo(todos, eachEntry, setTodos, setVisible)}
-            title="SAVE"
-            containerStyle={[styles.buttons, { minWidth: 150 }]}
-            textStyle={styles.buttonText}
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <View style={styles.formContainer}>
+        <Text>
+          <Text style={styles.titleText}>TASK: </Text>
+          {completed && (
+            <Text
+              style={styles.completedText}
+            >{`Completed on: ${actualCompletion}`}</Text>
+          )}
+        </Text>
+        <SafeAreaView>
+          <ScrollView keyboardDismissMode="on-drag">
+            <TextInput
+              name="name"
+              style={styles.textInput}
+              onChangeText={(text) => onChangeText(text, "name")}
+              value={name}
+            />
+            <Text>Description: </Text>
+            <TextInput
+              name="description"
+              style={styles.textInput}
+              onChangeText={(text) => onChangeText(text, "description")}
+              value={description}
+            />
+          </ScrollView>
+        </SafeAreaView>
+        <Text style={styles.titleText}>COMPLETE BY: </Text>
+        <View style={styles.rowContainer}>
+          <CalendarPicker
+            onDateSelect={onDateSelect}
+            targetCompletion={targetCompletion}
           />
+          <ColorPicker colors={Colors} onColorChange={onColorChange} />
         </View>
-      )}
-    </View>
+        {editState ? (
+          <EditButtons
+            onUpdatePress={() =>
+              updateTodo(todos, eachEntry, setTodos, setVisible, index)
+            }
+            onDeletePress={() =>
+              deleteTodo(todos, eachEntry, setTodos, setVisible, index)
+            }
+          />
+        ) : (
+          <View style={styles.saveButtonContainer}>
+            <Button
+              onPress={() => addTodo(todos, eachEntry, setTodos, setVisible)}
+              title="SAVE"
+              containerStyle={[styles.buttons, { minWidth: 150 }]}
+              textStyle={styles.buttonText}
+            />
+          </View>
+        )}
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 

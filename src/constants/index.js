@@ -7,6 +7,7 @@ export const TodoList = [
   {
     id: 1,
     name: "Laundry",
+    description: "Short description of what needs to be done",
     targetCompletion: "2020-05-29",
     actualCompletion: "",
     completed: false,
@@ -15,6 +16,7 @@ export const TodoList = [
   {
     id: 2,
     name: "Wash Car",
+    description: "Short description of what needs to be done",
     targetCompletion: "2020-05-29",
     actualCompletion: "",
     completed: false,
@@ -23,6 +25,7 @@ export const TodoList = [
   {
     id: 3,
     name: "Update Windows",
+    description: "Short description of what needs to be done",
     targetCompletion: "2020-05-29",
     actualCompletion: "",
     completed: false,
@@ -31,6 +34,7 @@ export const TodoList = [
   {
     id: 4,
     name: "Walk Dogs",
+    description: "Short description of what needs to be done",
     targetCompletion: "2020-05-29",
     actualCompletion: "",
     completed: false,
@@ -39,6 +43,7 @@ export const TodoList = [
   {
     id: 5,
     name: "Walk Dogs",
+    description: "Short description of what needs to be done", 
     targetCompletion: "2020-05-29",
     actualCompletion: "",
     completed: false,

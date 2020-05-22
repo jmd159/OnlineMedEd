@@ -27,6 +27,7 @@ export default function TodoItem({ item, onPress, onLongPress, shadows }) {
         </View>
         <View style={styles.columns}>
           <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.body}>{item.description}</Text>
           <Text style={styles.dateTitle}>
             <Text>{"TODO BY: \n"}</Text>
             <Text>{item.targetCompletion}</Text>
@@ -46,7 +47,9 @@ const styles = StyleSheet.create({
   },
   columns: {
     flexDirection: "column",
-    margin: 10,
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 15,
     flex: 1,
   },
   touchable: {
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 15,
     top: 15,
+    marginLeft: 5,
   },
   title: {
     color: "white",
@@ -69,5 +73,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 10,
     fontWeight: "500",
+  },
+  body: {
+    marginTop: 10,
+    color: "black",
+    fontSize: 13,
+    fontWeight: "400",
   },
 });
